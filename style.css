@@ -1,0 +1,146 @@
+:root {
+    --primary: #a47148;
+    --secondary: #f7efe5;
+    --accent: #edc9af;
+    --text: #4a342c;
+    --white: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+
+.logo { font-weight: 600; font-size: 1.2rem; }
+
+.nav-links a {
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1.2rem;
+    padding: 8px;
+    transition: 0.3s;
+}
+
+.nav-links a.active {
+    background: var(--accent);
+    border-radius: 12px;
+}
+
+.welcome-card {
+    background: var(--white);
+    padding: 40px 20px;
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 50px;
+    box-shadow: 0 10px 30px rgba(164, 113, 72, 0.1);
+}
+
+.card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px;
+    transition: transform 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    border-color: var(--accent);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Interactive Animations */
+.fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.summary-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.summary-line.total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pay-option {
+    background: var(--white);
+    padding: 15px 10px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8rem;
+}
+
+.pay-option.active {
+    border-color: var(--primary);
+    background: #fffaf5;
+}
+
+.pay-option .icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 8px 20px rgba(164, 113, 72, 0.3);
+    cursor: pointer;
+}

@@ -1,0 +1,40 @@
+<div class="container fade-in">
+    <h2 class="section-title">Checkout 🧾</h2>
+
+    <div id="cartList" class="payment-card">
+        </div>
+
+    <div class="summary-card">
+        <div class="summary-line">
+            <span>Subtotal</span>
+            <span id="subtotal">RM 0.00</span>
+        </div>
+        <div class="summary-line">
+            <span>Service Tax (6%)</span>
+            <span id="tax">RM 0.00</span>
+        </div>
+        <hr>
+        <div class="summary-line total">
+            <span>Total Amount</span>
+            <span id="grandTotal">RM 0.00</span>
+        </div>
+    </div>
+
+    <h3>Payment Method</h3>
+    <div class="payment-grid">
+        <div class="pay-option active" onclick="selectPay(this, 'E-Wallet')">
+            <span class="icon">📱</span>
+            <span>E-Wallet</span>
+        </div>
+        <div class="pay-option" onclick="selectPay(this, 'Online Banking')">
+            <span class="icon">🏦</span>
+            <span>FPX</span>
+        </div>
+        <div class="pay-option" onclick="selectPay(this, 'Card')">
+            <span class="icon">💳</span>
+            <span>Card</span>
+        </div>
+    </div>
+
+    <button onclick="processOrder()" class="btn-checkout">Pay & Order ☕</button>
+</div>
