@@ -1,146 +1,303 @@
+/*
+========================
+COLOUR THEME
+========================
+*/
 :root {
-    --primary: #a47148;
-    --secondary: #f7efe5;
-    --accent: #edc9af;
-    --text: #4a342c;
-    --white: #ffffff;
+    --beige: #f5f1e6;
+    --light-brown: #d6c3a3;
+    --brown: #8b5e3c;
+    --dark-brown: #5c3a21;
 }
 
+/*
+========================
+BODY
+========================
+*/
 body {
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
-    background-color: var(--secondary);
-    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--beige);
+    color: var(--dark-brown);
 }
 
+/*
+========================
+NAVBAR
+========================
+*/
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 15px 25px;
-    background: var(--white);
-    position: sticky;
-    top: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    z-index: 100;
+    align-items: center;
+    background-color: var(--brown);
+    padding: 12px 25px;
 }
 
-.logo { font-weight: 600; font-size: 1.2rem; }
+.logo {
+    color: var(--beige);
+    font-weight: bold;
+    font-size: 20px;
+}
 
-.nav-links a {
+.nav-center a {
+    margin: 0 15px;
     text-decoration: none;
-    margin-left: 15px;
-    font-size: 1.2rem;
-    padding: 8px;
-    transition: 0.3s;
+    color: var(--beige);
+    font-weight: 500;
 }
 
-.nav-links a.active {
-    background: var(--accent);
-    border-radius: 12px;
+.nav-center a:hover {
+    color: #fff;
 }
 
-.welcome-card {
-    background: var(--white);
-    padding: 40px 20px;
-    border-radius: 30px;
-    text-align: center;
-    margin-top: 50px;
-    box-shadow: 0 10px 30px rgba(164, 113, 72, 0.1);
+.active {
+    border-bottom: 2px solid var(--beige);
 }
 
+.nav-right a {
+    color: var(--beige);
+    margin-left: 12px;
+    text-decoration: none;
+}
+
+/*
+========================
+GENERAL CARD
+========================
+*/
 .card {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 15px;
-    margin: 10px;
-    transition: transform 0.2s ease;
-    border: 2px solid transparent;
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.card:hover {
-    transform: scale(1.03);
-    border-color: var(--accent);
-}
-
-.btn-primary {
-    background: var(--primary);
+/*
+========================
+BUTTON
+========================
+*/
+.btn {
+    background: var(--brown);
     color: white;
     border: none;
-    padding: 12px 25px;
-    border-radius: 15px;
-    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
     cursor: pointer;
-}
-
-/* Interactive Animations */
-.fade-in {
-    animation: fadeIn 0.8s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.summary-card {
-    background: var(--white);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-.summary-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
-
-.summary-line.total {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: var(--primary);
-}
-
-.payment-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.pay-option {
-    background: var(--white);
-    padding: 15px 10px;
-    border-radius: 15px;
-    text-align: center;
-    cursor: pointer;
-    border: 2px solid transparent;
     transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--dark-brown);
+}
+
+/*
+========================
+INPUT FORM
+========================
+*/
+input, select {
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid var(--light-brown);
+    border-radius: 6px;
+    width: 100%;
+}
+
+/*
+========================
+🏠 HERO SECTION (HOME)
+========================
+*/
+.hero {
+    height: 320px;
+    background: linear-gradient(
+        rgba(139, 94, 60, 0.7),
+        rgba(139, 94, 60, 0.7)
+    ),
+    url('images/cafe.jpg');
+    background-size: cover;
+    background-position: center;
+
     display: flex;
-    flex-direction: column;
-    font-size: 0.8rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    color: white;
 }
 
-.pay-option.active {
-    border-color: var(--primary);
-    background: #fffaf5;
+.hero-content h1 {
+    font-size: 42px;
+    margin: 0;
 }
 
-.pay-option .icon {
-    font-size: 1.5rem;
+.hero-content p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/*
+========================
+🍔 MENU GRID
+========================
+*/
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.menu-card {
+    width: 200px;
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.menu-card h3 {
+    margin: 10px 0 5px;
+}
+
+.menu-card p {
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+/*
+========================
+🛒 CART TABLE
+========================
+*/
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: var(--brown);
+    color: white;
+    padding: 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item {
+    background: #f9f6f0;
+    padding: 10px;
+    margin: 6px 0;
+    border-left: 4px solid var(--brown);
+    border-radius: 6px;
+}
+
+/*
+========================
+ADMIN PANEL
+========================
+*/
+.admin-box {
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/*
+========================
+🛒 CART IMPROVEMENT
+========================
+*/
+
+/* Center all table content */
+table th,
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Quantity button */
+.qty-btn {
+    background: var(--brown);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.qty-btn:hover {
+    background: var(--dark-brown);
+}
+
+/* Quantity number */
+.qty {
+    font-weight: bold;
+    margin: 0 8px;
+    display: inline-block;
+    min-width: 20px;
+}
+
+/* Delete button override (optional, nampak nicer) */
+.delete {
+    background: #a94442;
+}
+
+.delete:hover {
+    background: #843534;
+}
+/*
+========================
+🔐 LOGIN PAGE
+========================
+*/
+.login-card {
+    max-width: 350px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.login-card h2 {
     margin-bottom: 5px;
 }
 
-.btn-checkout {
+.login-card p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #777;
+}
+
+.login-card input {
+    margin-bottom: 12px;
+}
+
+.login-card .btn {
     width: 100%;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: 20px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    box-shadow: 0 8px 20px rgba(164, 113, 72, 0.3);
-    cursor: pointer;
 }
