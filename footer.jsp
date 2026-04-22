@@ -4,7 +4,7 @@
     Author     : Acer
 --%>
 <div class="footer">
-    <p>© 2026 Little Pour Co. All rights reserved.</p>
+    <p>Â© 2026 Little Pour Co. All rights reserved.</p>
 </div>
 
 <style>

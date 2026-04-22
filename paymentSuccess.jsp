@@ -9,7 +9,9 @@
 <%
 session.setAttribute("orderStatus","Preparing");
 %>
-<%@ include file="footer.jsp" %>
+
 <div class="card">
 <h2>Payment Success</h2>
 </div>
+
+<%@ include file="footer.jsp" %>

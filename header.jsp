@@ -13,8 +13,9 @@
     <div class="nav-center">
         <a href="index.jsp">Home</a>
         <a href="menu.jsp">Menu</a>
-        <a href="cart.jsp">? Cart</a>
+        <a href="cart.jsp">Cart</a>
         <a href="orderHistory.jsp">Order</a>
+        <a href="applyPromo.jsp">Promo</a>
     </div>
 
     <div class="nav-right">

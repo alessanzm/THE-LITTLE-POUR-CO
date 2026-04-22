@@ -1,49 +1,76 @@
-<%@ page import="java.net.*,java.io.*" %>
+<%@ page import="java.net.*,java.io.*,java.net.URLEncoder" %>
 
 <%
 String method = request.getParameter("method");
 String total = request.getParameter("total");
 
-if(total == null) total = "10.00"; // default fallback
+if(total == null || total.equals("")){
+    total = "10.00";
+}
 
-// =========================
-// 1. CASH PAYMENT
-// =========================
+/* =========================
+   1. CASH PAYMENT
+========================= */
 if("cash".equals(method)){
-    session.setAttribute("orderStatus","Pending (Cash)");
+    session.setAttribute("paymentMethod", "Cash");
+    session.setAttribute("orderStatus", "Pending (Cash)");
+    session.setAttribute("paymentAmount", total);
+
     response.sendRedirect("paymentSuccess.jsp");
     return;
 }
 
-// =========================
-// 2. DEBIT / ONLINE SIMULATION
-// =========================
+/* =========================
+   2. DEBIT CARD
+========================= */
 if("debit".equals(method)){
-    session.setAttribute("orderStatus","Paid (Debit Card)");
-    response.sendRedirect("paymentSuccess.jsp");
+    session.setAttribute("paymentMethod", "Debit Card");
+    session.setAttribute("payTotal", total);
+
+    response.sendRedirect("debitPayment.jsp");
     return;
 }
 
-// =========================
-// 3. TOYYIBPAY (REAL FLOW)
-// =========================
+/* =========================
+   3. CREDIT CARD
+========================= */
+if("credit".equals(method)){
+    session.setAttribute("paymentMethod", "Credit Card");
+    session.setAttribute("payTotal", total);
+
+    response.sendRedirect("creditPayment.jsp");
+    return;
+}
+
+/* =========================
+   4. TOYYIBPAY
+========================= */
 if("toyyib".equals(method)){
 
     String secretKey = "YOUR_SECRET_KEY";
     String categoryCode = "YOUR_CATEGORY_CODE";
 
+    double amount = 0;
+    try {
+        amount = Double.parseDouble(total);
+    } catch(Exception e){
+        amount = 10.00;
+    }
+
+    int amountInCent = (int)(amount * 100);
+
     String data =
-        "userSecretKey=" + secretKey +
-        "&categoryCode=" + categoryCode +
-        "&billName=Little Pour Order" +
-        "&billDescription=Food Order Payment" +
+        "userSecretKey=" + URLEncoder.encode(secretKey, "UTF-8") +
+        "&categoryCode=" + URLEncoder.encode(categoryCode, "UTF-8") +
+        "&billName=" + URLEncoder.encode("Little Pour Order", "UTF-8") +
+        "&billDescription=" + URLEncoder.encode("Food Order Payment", "UTF-8") +
         "&billPriceSetting=1" +
         "&billPayorInfo=1" +
-        "&billAmount=" + (int)(Double.parseDouble(total) * 100) +
-        "&billReturnUrl=http://localhost:8080/YourProject/paymentSuccess.jsp" +
-        "&billCallbackUrl=http://localhost:8080/YourProject/callback.jsp" +
+        "&billAmount=" + amountInCent +
+        "&billReturnUrl=" + URLEncoder.encode("http://localhost:8080/YourProject/paymentSuccess.jsp", "UTF-8") +
+        "&billCallbackUrl=" + URLEncoder.encode("http://localhost:8080/YourProject/callback.jsp", "UTF-8") +
         "&billExternalReferenceNo=ORDER001" +
-        "&billTo=Customer";
+        "&billTo=" + URLEncoder.encode("Customer", "UTF-8");
 
     URL url = new URL("https://dev.toyyibpay.com/index.php/api/createBill");
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -53,28 +80,29 @@ if("toyyib".equals(method)){
     conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
     OutputStream os = conn.getOutputStream();
-    os.write(data.getBytes());
+    os.write(data.getBytes("UTF-8"));
     os.flush();
     os.close();
 
-    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    BufferedReader br = new BufferedReader(
+        new InputStreamReader(conn.getInputStream(), "UTF-8")
+    );
 
-    String responseLine = "";
-    StringBuilder responseText = new StringBuilder();
+    String line;
+    StringBuilder result = new StringBuilder();
 
-    while((responseLine = br.readLine()) != null){
-        responseText.append(responseLine);
+    while((line = br.readLine()) != null){
+        result.append(line);
     }
 
     br.close();
 
-    // extract bill code
-    String res = responseText.toString();
-    String billCode = res.split("\"")[3];
+    String res = result.toString();
 
-    // redirect to payment page
+    // safer extraction of billCode
+    String billCode = res.replaceAll(".*\"BillCode\":\"(.*?)\".*", "$1");
+
     response.sendRedirect("https://dev.toyyibpay.com/" + billCode);
-
     return;
 }
 %>

@@ -19,6 +19,5 @@ out.println("No order");
 out.println("Status: "+s);
 }
 %>
-
-<%@ include file="footer.jsp" %>
 </div>
+<%@ include file="footer.jsp" %>

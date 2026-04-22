@@ -1,8 +1,9 @@
 <%-- 
     Document   : logout
-    Created on : 22 Apr 2026, 12:25:19?pm
-    Author     : Acer
+    Created on : 22 Apr 2026, 2:49:54 pm
+    Author     : alessa
 --%>
+
 <%
 session.invalidate();
 response.sendRedirect("login.jsp");
