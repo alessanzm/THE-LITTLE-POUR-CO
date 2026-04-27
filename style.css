@@ -22,8 +22,7 @@ body {
     color: var(--dark-brown);
 }
 
-/*
-========================
+/*========================
 NAVBAR
 ========================
 */
@@ -300,4 +299,116 @@ table td {
 
 .login-card .btn {
     width: 100%;
+}
+
+/*
+========================
+🧾 RECEIPT STYLE (MALL STYLE)
+========================
+*/
+
+.receipt {
+    width: 300px;
+    margin: 20px auto;
+    padding: 18px;
+    background: #fff;
+    font-family: monospace;
+    font-size: 14px;
+    border: 2px dashed var(--light-brown);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.receipt h3 {
+    margin: 0;
+    color: var(--brown);
+    font-size: 18px;
+}
+
+.receipt p {
+    margin: 5px 0;
+}
+
+.receipt-item {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed var(--light-brown);
+}
+
+.receipt-item b {
+    color: var(--dark-brown);
+}
+
+.receipt span {
+    float: right;
+}
+
+.receipt hr {
+    border: none;
+    border-top: 1px dashed var(--light-brown);
+    margin: 10px 0;
+}
+
+
+@media print {
+
+    @page {
+        size: 80mm auto;
+        margin: 5mm;
+    }
+
+    /* ❗ HIDE SEMUA dulu */
+    body * {
+        visibility: hidden;
+    }
+
+    /* ❗ TUNJUK RECEIPT SAHAJA */
+    #receiptArea, #receiptArea * {
+        visibility: visible;
+    }
+
+    /* ❗ POSITION RECEIPT */
+    #receiptArea {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 260px !important;
+        font-size: 12px;
+    }
+
+    .receipt {
+        width: 100% !important;
+        border: none;
+        box-shadow: none;
+    }
+
+    .receipt h3 {
+        font-size: 16px;
+    }
+
+    .receipt p {
+        font-size: 12px;
+    }
+
+    /* ❗ BUANG BUTTON */
+    button {
+        display: none !important;
+    }
+}
+/* ========================
+PAGE LAYOUT FIX (FOOTER STICK BOTTOM)
+======================== */
+html, body {
+    height: 100%;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
 }

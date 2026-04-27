@@ -1,7 +1,7 @@
 <%@ include file="header.jsp" %>
 
 <div class="card">
-    <h2>? Our Menu</h2>
+    <h2> Our Menu</h2>
     <p>Choose your favourite food & drinks</p>
 </div>
 

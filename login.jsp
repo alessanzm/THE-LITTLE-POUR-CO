@@ -1,17 +1,18 @@
+<%@ page import="java.util.*" %>
 <link rel="stylesheet" href="style.css">
 
 <%
-String input = request.getParameter("username"); // boleh jadi username atau email
+String input = request.getParameter("username");
 String p = request.getParameter("password");
 
-if(input != null){
+if(input != null && p != null){
 
     input = input.trim();
 
     /* =========================
-       ADMIN (EMAIL ONLY)
+       ADMIN ONLY (HARDCODE ALLOWED)
     ========================= */
-    if(input.equalsIgnoreCase("admin@gmail.com") && p.equals("1234")){
+    if(input.equalsIgnoreCase("admin@gmail.com") && "1234".equals(p)){
         session.setAttribute("role","admin");
         session.setAttribute("user","Admin");
         response.sendRedirect("admin.jsp");
@@ -19,37 +20,40 @@ if(input != null){
     }
 
     /* =========================
-       USER (USERNAME / EMAIL)
+       CUSTOMER (FROM SESSION ONLY)
     ========================= */
-    if(p != null && !p.isEmpty()){
-        session.setAttribute("role","user");
-        session.setAttribute("user", input);
-        response.sendRedirect("menu.jsp");
-        return;
+    Map<String, String> users = (Map<String, String>) session.getAttribute("users");
+
+    if(users != null && users.containsKey(input)){
+
+        if(users.get(input).equals(p)){
+            session.setAttribute("role","user");
+            session.setAttribute("user", input);
+            response.sendRedirect("menu.jsp");
+            return;
+        }
     }
+
+    out.println("<p style='color:red;text-align:center;'>Invalid login</p>");
 }
 %>
-
 
 <div class="card login-card">
 
     <h2>Login</h2>
-    <p>Login using username or email</p>
 
-    <form method="get">
+    <form method="post">
 
         <input name="username" placeholder="Username or Email" required>
-
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="password" required>
 
         <button class="btn">Login</button>
 
     </form>
 
-    <p style="margin-top:10px; font-size:13px; color:#888;">
-        Admin: admin@gmail.com / 1234
+    <p>
+        <a href="register.jsp">Create Account</a> |
+        <a href="forgotPassword.jsp">Forgot Password</a>
     </p>
 
 </div>
-
-<%@ include file="footer.jsp" %>

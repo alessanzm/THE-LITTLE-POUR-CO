@@ -1,4 +1,4 @@
-<%@ page import="java.net.*,java.io.*,java.net.URLEncoder" %>
+<%@ page import="java.net.*,java.io.*,java.net.URLEncoder,java.util.*" %>
 
 <%
 String method = request.getParameter("method");
@@ -9,12 +9,40 @@ if(total == null || total.equals("")){
 }
 
 /* =========================
+   BUILD RECEIPT DATA (GLOBAL FIX)
+========================= */
+List<String> cart = (List<String>) session.getAttribute("cart");
+List<String[]> receiptData = new ArrayList<>();
+
+if(cart != null && !cart.isEmpty()){
+
+    for(String item : cart){
+
+        String[] data = item.split(":");
+
+        String name = data[0];
+        int qty = Integer.parseInt(data[2]);
+        double price = Double.parseDouble(data[1]);
+
+        receiptData.add(new String[]{name, String.valueOf(qty), String.valueOf(price)});
+    }
+}
+
+/* SAVE EARLY (IMPORTANT FIX) */
+session.setAttribute("receiptData", receiptData);
+session.setAttribute("finalTotal", Double.parseDouble(total));
+
+/* =========================
    1. CASH PAYMENT
 ========================= */
 if("cash".equals(method)){
+
     session.setAttribute("paymentMethod", "Cash");
     session.setAttribute("orderStatus", "Pending (Cash)");
     session.setAttribute("paymentAmount", total);
+
+    // clear cart AFTER receipt saved
+    session.removeAttribute("cart");
 
     response.sendRedirect("paymentSuccess.jsp");
     return;
@@ -99,7 +127,6 @@ if("toyyib".equals(method)){
 
     String res = result.toString();
 
-    // safer extraction of billCode
     String billCode = res.replaceAll(".*\"BillCode\":\"(.*?)\".*", "$1");
 
     response.sendRedirect("https://dev.toyyibpay.com/" + billCode);

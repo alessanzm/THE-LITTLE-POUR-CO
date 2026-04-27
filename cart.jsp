@@ -3,6 +3,8 @@
 
 <link rel="stylesheet" href="style.css">
 
+<div class="content">
+
 <%
 List<String> cart = (List<String>) session.getAttribute("cart");
 if (cart == null) {
@@ -53,7 +55,7 @@ if (remove != null) {
             cart.remove(index);
         }
     } catch (Exception e) {
-        // ignore invalid index
+        // ignore
     }
 }
 
@@ -90,7 +92,7 @@ if (action != null && indexStr != null) {
         }
 
     } catch (Exception e) {
-        // ignore invalid input
+        // ignore
     }
 }
 
@@ -108,7 +110,7 @@ session.setAttribute("cart", cart);
 if (cart.isEmpty()) {
 %>
 
-    <p>Your cart is empty </p>
+    <p>Your cart is empty</p>
 
 <%
 } else {
@@ -168,6 +170,8 @@ for (int i = 0; i < cart.size(); i++) {
     <button class="btn">Proceed to Checkout</button>
 </a>
 
-</div>
+</div> <!-- end card -->
+
+</div> <!-- end content -->
 
 <%@ include file="footer.jsp" %>

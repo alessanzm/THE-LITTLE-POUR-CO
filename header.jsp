@@ -1,10 +1,6 @@
-<%-- 
-    Document   : header
-    Created on : 22 Apr 2026, 12:30:42?pm
-    Author     : Acer
---%>
-
 <link rel="stylesheet" href="style.css">
+
+<div class="page-wrapper">
 
 <div class="navbar">
 
@@ -19,19 +15,19 @@
     </div>
 
     <div class="nav-right">
-        <%
-        String role = (String) session.getAttribute("role");
-        %>
 
-        <% if(role == null){ %>
+        <%-- LOGIN / LOGOUT --%>
+        <% if(session.getAttribute("role") == null){ %>
             <a href="login.jsp">Login</a>
         <% } else { %>
             <a href="logout.jsp">Logout</a>
         <% } %>
 
-        <% if("admin".equals(role)){ %>
+        <%-- ADMIN ONLY --%>
+        <% if("admin".equals(session.getAttribute("role"))){ %>
             <a href="admin.jsp">Admin</a>
         <% } %>
+
     </div>
 
 </div>

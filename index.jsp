@@ -37,7 +37,7 @@ boolean open = hour >= 8 && hour <= 22;
 <div class="card">
     <h2>About Us</h2>
     <p>
-        Little Pour Co. is a modern café offering delicious meals and drinks.
+        Little Pour Co. is a modern caf� offering delicious meals and drinks.
         Enjoy your food in a cozy and relaxing environment.
     </p>
 </div>

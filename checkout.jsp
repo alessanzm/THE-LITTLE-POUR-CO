@@ -1,6 +1,18 @@
 <%@ page import="java.util.*" %>
-<%@ include file="header.jsp" %>
 
+<%
+/* =========================
+   LOGIN GUARD (MUST BE TOP)
+========================= */
+String role = (String) session.getAttribute("role");
+
+if(role == null){
+    response.sendRedirect("login.jsp");
+    return;
+}
+%>
+
+<%@ include file="header.jsp" %>
 <link rel="stylesheet" href="style.css">
 
 <%
@@ -21,15 +33,25 @@ session.setAttribute("total", total);
 Double discount = (Double) session.getAttribute("discount");
 if (discount == null) discount = 0.0;
 
-Double finalTotal = (Double) session.getAttribute("finalTotal");
-if (finalTotal == null) {
-    finalTotal = total;
+/* =========================
+   SAFE FINAL TOTAL
+========================= */
+double finalTotal = total;
+
+Object sessionFinal = session.getAttribute("finalTotal");
+
+if (sessionFinal != null) {
+    try {
+        finalTotal = (Double) sessionFinal;
+    } catch (Exception e) {
+        finalTotal = total;
+    }
 }
 %>
 
 <style>
     body {
-        background-color: #fdfaf5; /* Matches the warm tone in your screenshot */
+        background-color: #fdfaf5;
         margin: 0;
         padding: 0;
     }
@@ -64,47 +86,31 @@ if (finalTotal == null) {
         margin: 20px 0;
     }
 
- 
-.payment-option {
-    margin-bottom: 12px;
-    width: 100%; /* Ensures it takes the full card width */
-}
+    .payment-option {
+        margin-bottom: 12px;
+        width: 100%;
+    }
 
-.payment-option label {
-    display: flex;
-    align-items: center; /* This forces the radio and text to share the same center line */
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    gap: 12px; /* Controlled spacing between the dot and the text */
-}
+    .payment-option label {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        gap: 12px;
+    }
 
-.payment-option input[type="radio"] {
-    margin: 0; /* CRITICAL: Browsers often add a 3px bottom margin by default */
-    padding: 0;
-    width: 18px; /* Set a fixed size so it doesn't jump around */
-    height: 18px;
-    cursor: pointer;
-    flex-shrink: 0; /* Prevents the circle from squishing if text is long */
-}
+    .payment-option input[type="radio"] {
+        margin: 0;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        transform: scale(1.2);
+        accent-color: #8b5e34;
+        cursor: pointer;
+    }
 
-/* This targets the text specifically */
-.payment-option span {
-    margin-left: 15px; /* Creates a fixed space after the radio button */
-    font-size: 16px;
-    color: #333;
-    text-align: left;
-}
-
-.payment-option input[type="radio"] {
-    margin: 0; /* Removes default browser margins */
-    transform: scale(1.2);
-    accent-color: #8b5e34; /* Colors the radio button brown */
-    cursor: pointer;
-}
-
-    /* FORM ELEMENTS */
     .btn {
         width: 100%;
         padding: 14px;
@@ -130,7 +136,7 @@ if (finalTotal == null) {
 
     input[type="text"] {
         width: 100%;
-        box-sizing: border-box; /* Prevents input from overflowing the card */
+        box-sizing: border-box;
         padding: 12px;
         margin-top: 8px;
         margin-bottom: 15px;
@@ -191,8 +197,6 @@ if (finalTotal == null) {
                 Online Banking (ToyyibPay)
             </label>
         </div>
-
-        <br>
 
         <button class="btn" type="submit">Pay Now</button>
     </form>
